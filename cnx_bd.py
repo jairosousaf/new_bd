@@ -42,4 +42,13 @@ for i in range(1,10001):
     
     dados_professor.append((nome, data_nascimento, cidade_natal, estado, renda_percapta, formacao))
     
+inserir_query = '''
+    INSERT INTO professor(
+        nome, data_nascimento, cidade_natal, estado, renda_percapta, formacao
+    ) VALUES (%s, %s, %s, %s, %s, %s)
+'''
+cursor.executemany(inserir_query, dados_professor)
+
+conexao.commit()
+conexao.close()
 
