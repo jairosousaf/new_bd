@@ -4,7 +4,7 @@ from faker import Faker
 host = 'localhost'
 usuario = 'root'
 senha = 'admin'
-banco_de_dados = 'meubanco'
+banco_de_dados = 'huufma'
 
 conexao = mysql.connector.connect(
     host = host,
@@ -17,13 +17,13 @@ cursor = conexao.cursor()
 
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS professor(
-        id INT AUT_INCREMENT PRIMARY KEY,
-        nome VARCHAR(250),
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        nome VARCHAR(50),
         data_nascimento DATE,
-        cidade_natal VARCHAR(255,
+        cidade_natal VARCHAR(25),
         estado VARCHAR(2),
         renda_percapta FLOAT,
-        formacao VARCHAR(255)
+        formacao VARCHAR(20)
     )
 '''               
 )
@@ -38,7 +38,7 @@ for i in range(1,10001):
     cidade_natal = fake.city()
     estado = fake.estado_sigla()
     renda_percapta = fake.pyfloat(left_digits = 4, right_digits = 2, positive = True)
-    formacao = fake.text(max_nb_chars = 255)
+    formacao = fake.text(max_nb_chars = 20)
     
     dados_professor.append((nome, data_nascimento, cidade_natal, estado, renda_percapta, formacao))
     
@@ -51,4 +51,3 @@ cursor.executemany(inserir_query, dados_professor)
 
 conexao.commit()
 conexao.close()
-
